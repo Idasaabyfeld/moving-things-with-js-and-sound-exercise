@@ -73,7 +73,7 @@ function moveDodgerDown() {
     }
 }
 
-//AUDIO
+//AUDIO - MovenmentSound
 const movementSound = document.getElementById("movementSound");
 
 function playSoundOnMovement() {
@@ -89,6 +89,8 @@ function moveDodgerUp() {
     if (bottom < 360) {
         dodger.style.bottom = `${bottom + 5}px`;
         playSoundOnMovement(); // Afspil lyd
+    } else {
+        playGameOverSound(); // Afspil game over-lyd ved kollision
     }
 }
 
@@ -100,6 +102,8 @@ function moveDodgerDown() {
     if (bottom > 0) {
         dodger.style.bottom = `${bottom - 5}px`;
         playSoundOnMovement(); // Afspil lyd
+    } else {
+        playGameOverSound(); // Afspil game over-lyd ved kollision
     }
 }
 
@@ -111,6 +115,8 @@ function moveDodgerLeft() {
     if (left > 0) {
         dodger.style.left = `${left - 5}px`;
         playSoundOnMovement(); // Afspil lyd
+    } else {
+    playGameOverSound(); // Afspil game over-lyd ved kollision
     }
 }
 
@@ -122,5 +128,33 @@ function moveDodgerRight() {
     if (left < 360) {
         dodger.style.left = `${left + 5}px`;
         playSoundOnMovement(); // Afspil lyd
+    } else {
+        playGameOverSound(); // Afspil game over-lyd ved kollision
     }
 }
+
+//AUDIO - GameOver
+const gameoverSound = document.getElementById("gameoverSound");
+function playGameOverSound() {
+    gameoverSound.currentTime = 0;  // Brug det korrekte variabelnavn
+    gameoverSound.play();  // Afspil lyden
+}
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const dodger = document.getElementById("dodger");
+
+    // Størrelsen på containeren og Pac-Man
+    const containerWidth = 400; // Containerens bredde (400px)
+    const containerHeight = 400; // Containerens højde (400px)
+    const dodgerWidth = dodger.offsetWidth; // Pac-Man bredde
+    const dodgerHeight = dodger.offsetHeight; // Pac-Man højde
+
+    // Beregn positionen i midten
+    const leftPosition = (containerWidth - dodgerWidth) / 2;
+    const bottomPosition = (containerHeight - dodgerHeight) / 2;
+
+    // Sæt Pac-Man til midten af containeren
+    dodger.style.left = `${leftPosition}px`;
+    dodger.style.bottom = `${bottomPosition}px`;
+});
